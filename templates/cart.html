@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+```
+<h2 class="fw-bold">
+    My Cart
+</h2>
+```
+
+</div>
+
+<div class="table-responsive">
+
+```
+<table class="table table-bordered align-middle">
+
+    <thead class="table-light">
+
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th width="180">Quantity</th>
+            <th>Total</th>
+            <th>Remove</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for item in cart_items %}
+
+        <tr>
+
+            <td>
+                {{ item.product_name }}
+            </td>
+
+            <td>
+                ₹{{ item.price }}
+            </td>
+
+            <td>
+
+                <div class="d-flex align-items-center gap-2">
+
+                    <a href="/decrease/{{ item.cart_id }}"
+                       class="btn btn-outline-secondary btn-sm">
+                        -
+                    </a>
+
+                    <strong>
+                        {{ item.quantity }}
+                    </strong>
+
+                    <a href="/increase/{{ item.cart_id }}"
+                       class="btn btn-outline-secondary btn-sm">
+                        +
+                    </a>
+
+                </div>
+
+            </td>
+
+            <td>
+                ₹{{ item.subtotal }}
+            </td>
+
+            <td>
+
+                <a href="/remove/{{ item.cart_id }}"
+                   class="btn btn-danger btn-sm">
+                    Remove
+                </a>
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+```
+
+</div>
+
+<div class="card shadow-sm mt-4">
+
+```
+<div class="card-body">
+
+    <div class="d-flex justify-content-between">
+
+        <h5>
+            Grand Total
+        </h5>
+
+        <h5 class="text-success">
+            ₹{{ total }}
+        </h5>
+
+    </div>
+
+    <a href="/checkout"
+       class="btn btn-success w-100 mt-3">
+
+        Proceed To Order
+
+    </a>
+
+</div>
+```
+
+</div>
+
+{% endblock %}
