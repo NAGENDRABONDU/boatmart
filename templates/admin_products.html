@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-3">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h3 class="fw-bold mb-0">
+        📦 Products
+    </h3>
+
+    <a href="/admin/orders"
+       class="btn btn-outline-secondary">
+
+        ← Back
+
+    </a>
+
+</div>
+
+<a href="/admin/add-product"
+   class="btn btn-success w-100 mb-4">
+
+    ➕ Add Product
+
+</a>
+
+<form method="GET" class="mb-4">
+
+    <select
+        name="category"
+        class="form-select"
+        onchange="this.form.submit()">
+
+        <option value=""
+    {% if category == "" %}selected{% endif %}>
+    All Categories
+</option>
+
+<option value="Drinks"
+    {% if category == "Drinks" %}selected{% endif %}>
+    Drinks
+</option>
+
+<option value="Snacks"
+    {% if category == "Snacks" %}selected{% endif %}>
+    Snacks
+</option>
+
+<option value="Grocery Items"
+    {% if category == "Grocery Items" %}selected{% endif %}>
+    Grocery Items
+</option>
+
+<option value="Fishing Equipment"
+    {% if category == "Fishing Equipment" %}selected{% endif %}>
+    Fishing Equipment
+</option>
+
+<option value="Boat Accessories"
+    {% if category == "Boat Accessories" %}selected{% endif %}>
+    Boat Accessories
+</option>
+    </select>
+
+</form>
+
+{% if products %}
+
+    {% for product in products %}
+
+<div class="card border-0 shadow-sm rounded-4 mb-3">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-start">
+
+            <div>
+
+                <h5 class="fw-bold mb-1">
+
+                    {{ product[1] }}
+
+                </h5>
+
+                <small class="text-muted">
+
+    {{ product[2] }}
+
+</small>
+
+<br>
+
+{% if product[5] == 1 %}
+
+<span class="badge bg-success mt-1">
+
+    Active
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger mt-1">
+
+    Inactive
+
+</span>
+
+{% endif %}
+
+            </div>
+
+            {% if product[4] < 20 %}
+
+            <span class="badge bg-danger">
+
+                Low Stock
+
+            </span>
+
+            {% endif %}
+
+
+        </div>
+
+        <hr>
+
+        <div class="row text-center">
+
+            <div class="col-6">
+
+                <div class="fw-bold text-success">
+
+                    ₹{{ product[3] }}
+
+                </div>
+
+                <small class="text-muted">
+
+                    Price
+
+                </small>
+
+            </div>
+
+            <div class="col-6">
+
+                <div class="fw-bold text-primary">
+
+                    {{ product[4] }}
+
+                </div>
+
+                <small class="text-muted">
+
+                    Stock
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="d-grid gap-2 mt-3">
+
+            <a href="/admin/update-stock/{{ product[0] }}"
+               class="btn btn-primary">
+
+                📦 Update Stock
+
+            </a>
+
+            <a href="/admin/edit-product/{{ product[0] }}"
+               class="btn btn-warning">
+
+                ✏ Edit Product
+
+            </a>
+            {% if product[5] == 1 %}
+
+<a href="/admin/disable-product/{{ product[0] }}"
+   class="btn btn-danger">
+
+    🚫 Disable Product
+
+</a>
+
+{% else %}
+
+<a href="/admin/enable-product/{{ product[0] }}"
+   class="btn btn-success">
+
+    ✅ Enable Product
+
+</a>
+
+{% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+{% else %}
+
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body text-center">
+
+        <h5 class="text-danger">
+
+            ❌ Product Not Found
+
+        </h5>
+
+        <p class="text-muted mb-0">
+
+            Try another search term.
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endif %}
+</div>
+
+{% endblock %}

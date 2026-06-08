@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-3">
+
+    <a href="/admin/products"
+       class="btn btn-outline-secondary mb-3">
+
+        ← Back
+
+    </a>
+
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="card-body">
+
+            <h3 class="fw-bold mb-3">
+
+                📦 Update Stock
+
+            </h3>
+
+            <h5>
+
+                {{ product[0] }}
+
+            </h5>
+
+            <p class="text-muted">
+
+                Current Stock:
+                {{ product[1] }}
+
+            </p>
+
+            <form method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        New Stock
+
+                    </label>
+
+                    <input
+                        type="number"
+                        name="stock"
+                        class="form-control"
+                        value="{{ product[1] }}"
+                        required>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100">
+
+                    Save Stock
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

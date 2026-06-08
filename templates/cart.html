@@ -1,121 +1,206 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-```
-<h2 class="fw-bold">
+<h2 class="fw-bold text-center mb-4">
     My Cart
 </h2>
-```
 
-</div>
+{% if cart_items %}
 
 <div class="table-responsive">
 
-```
-<table class="table table-bordered align-middle">
+    <table class="table table-bordered align-middle">
 
-    <thead class="table-light">
+        <thead class="table-light">
 
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th width="180">Quantity</th>
-            <th>Total</th>
-            <th>Remove</th>
-        </tr>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th width="180">Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+            </tr>
 
-    </thead>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-    {% for item in cart_items %}
+        {% for item in cart_items %}
 
-        <tr>
+            <tr>
 
-            <td>
-                {{ item.product_name }}
-            </td>
+                <td>{{ item.product_name }}</td>
 
-            <td>
-                ₹{{ item.price }}
-            </td>
+                <td>₹{{ item.price }}</td>
 
-            <td>
+                <td>
 
-                <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-2">
 
-                    <a href="/decrease/{{ item.cart_id }}"
-                       class="btn btn-outline-secondary btn-sm">
-                        -
+                        <a href="/decrease/{{ item.cart_id }}"
+                           class="btn btn-outline-secondary btn-sm">
+                            -
+                        </a>
+
+                        <strong>{{ item.quantity }}</strong>
+
+                        <a href="/increase/{{ item.cart_id }}"
+                           class="btn btn-outline-secondary btn-sm">
+                            +
+                        </a>
+
+                    </div>
+
+                </td>
+
+                <td>₹{{ item.subtotal }}</td>
+
+                <td>
+
+                    <a href="/remove/{{ item.cart_id }}"
+                       class="btn btn-danger btn-sm">
+                        Remove
                     </a>
 
-                    <strong>
-                        {{ item.quantity }}
-                    </strong>
+                </td>
 
-                    <a href="/increase/{{ item.cart_id }}"
-                       class="btn btn-outline-secondary btn-sm">
-                        +
-                    </a>
+            </tr>
 
-                </div>
+        {% endfor %}
 
-            </td>
+        </tbody>
 
-            <td>
-                ₹{{ item.subtotal }}
-            </td>
-
-            <td>
-
-                <a href="/remove/{{ item.cart_id }}"
-                   class="btn btn-danger btn-sm">
-                    Remove
-                </a>
-
-            </td>
-
-        </tr>
-
-    {% endfor %}
-
-    </tbody>
-
-</table>
-```
+    </table>
 
 </div>
 
-<div class="card shadow-sm mt-4">
+<div class="mb-3">
 
-```
-<div class="card-body">
+    <a href="/products"
+       class="btn btn-outline-primary w-100">
 
-    <div class="d-flex justify-content-between">
-
-        <h5>
-            Grand Total
-        </h5>
-
-        <h5 class="text-success">
-            ₹{{ total }}
-        </h5>
-
-    </div>
-
-    <a href="/checkout"
-       class="btn btn-success w-100 mt-3">
-
-        Proceed To Order
+        ← Add More Products
 
     </a>
 
 </div>
-```
+<div class="card shadow-sm mt-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between">
+
+            <h5>Grand Total</h5>
+
+            <h5 class="text-success">
+                ₹{{ total }}
+            </h5>
+
+        </div>
+
+        <a href="/checkout"
+           class="btn btn-success w-100 mt-3">
+
+            Proceed To Order
+
+        </a>
+
+    </div>
 
 </div>
+
+{% else %}
+
+<div class="card shadow-sm">
+
+    <div class="card-body text-center">
+
+        <h4>Your Cart is Empty</h4>
+
+        <p class="text-muted">
+            Add some products to start shopping.
+        </p>
+
+        <a href="/products"
+           class="btn btn-primary">
+
+            Continue Shopping
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+<div class="modal fade" id="stockLimitModal" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 rounded-4">
+
+            <div class="modal-body text-center p-4">
+
+                <div style="font-size:80px;">
+                    ⚠️
+                </div>
+
+                <h4 class="fw-bold mt-3">
+                    Stock Limit Reached
+                </h4>
+
+               <p class="text-muted">
+
+    We currently have limited stock available.
+
+    <br><br>
+
+    You have already added the maximum
+    quantity allowed to your cart.
+
+    <br><br>
+
+    Please complete your order or
+    remove some items before adding more.
+
+</p>
+
+                <button
+                    type="button"
+                    class="btn btn-primary w-100 rounded-pill"
+                    data-bs-dismiss="modal">
+
+                    OK
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% if request.args.get('stock_limit') %}
+
+<script>
+
+window.onload = function() {
+
+    var stockModal = new bootstrap.Modal(
+        document.getElementById("stockLimitModal")
+    );
+
+    stockModal.show();
+
+};
+
+</script>
+
+{% endif %}
 
 {% endblock %}

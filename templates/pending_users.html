@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex align-items-center mb-4">
+
+    <a href="/profile"
+       class="btn btn-outline-secondary me-3">
+        ←
+    </a>
+
+    <h3 class="mb-0 fw-bold">
+        Pending Approvals
+    </h3>
+
+</div>
+
+{% if users %}
+
+    {% for user in users %}
+
+    <div class="card shadow-sm border-0 rounded-4 mb-3">
+
+        <div class="card-body">
+
+            <div class="text-center mb-3">
+
+                <div style="font-size:50px;">
+                    👨‍✈️
+                </div>
+
+                <h5 class="fw-bold mb-0">
+                    {{ user.name }}
+                </h5>
+
+            </div>
+
+            <div class="mb-2">
+
+                <strong>📱 Mobile</strong>
+
+                <p class="mb-0">
+                    {{ user.mobile }}
+                </p>
+
+            </div>
+
+            <div class="mb-3">
+
+                <strong>🚤 Boat Number</strong>
+
+                <p class="mb-0">
+                    {{ user.boat_number }}
+                </p>
+
+            </div>
+
+            <div class="d-flex gap-2">
+
+    <a href="/approve-user/{{ user.user_id }}"
+       class="btn btn-success flex-fill">
+
+        ✅ Approve
+
+    </a>
+
+    <a href="/reject-user/{{ user.user_id }}"
+       class="btn btn-danger flex-fill">
+
+        ❌ Reject
+
+    </a>
+
+</div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="card shadow-sm border-0 rounded-4">
+
+    <div class="card-body text-center p-4">
+
+        <div style="font-size:70px;">
+            🎉
+        </div>
+
+        <h4 class="fw-bold mt-3">
+            No Pending Requests
+        </h4>
+
+        <p class="text-muted">
+
+            All crew registration requests
+            have been reviewed.
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

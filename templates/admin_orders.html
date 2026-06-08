@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-3">
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h3 class="fw-bold mb-0">
+        Admin Dashboard
+    </h3>
+
+    <a href="/admin-logout"
+       class="btn btn-danger  mb-3">
+
+        🚪 Admin Logout
+
+    </a>
+
+</div>
+
+<a href="/admin/collected-orders"
+   class="btn btn-success w-100 mb-3">
+
+    ✅ Collected Orders History
+
+</a>
+<a href="/admin/products"
+   class="btn btn-primary w-100 mb-3">
+
+    📦 Manage Products
+
+</a>
+<!-- Statistics -->
+
+<div class="row g-3 mb-4">
+
+    <div class="col-6">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body text-center">
+
+                <h4 class="fw-bold text-primary">
+                    {{ total_orders }}
+                </h4>
+
+                <small class="text-muted">
+                    Orders
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-6">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body text-center">
+
+                <h4 class="fw-bold text-success">
+                    ₹{{ total_revenue }}
+                </h4>
+
+                <small class="text-muted">
+                    Revenue
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-6">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body text-center">
+
+                <h4 class="fw-bold">
+                    {{ total_products }}
+                </h4>
+
+                <small class="text-muted">
+                    Products
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-6">
+
+        <div class="card border-0 shadow-sm rounded-4">
+
+            <div class="card-body text-center">
+
+                <h4 class="fw-bold text-danger">
+                    {{ low_stock }}
+                </h4>
+
+                <small class="text-muted">
+                    Low Stock
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Low Stock Products -->
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="card-body">
+
+        <h5 class="fw-bold mb-3">
+            ⚠ Low Stock Products
+        </h5>
+
+        {% if low_stock_products %}
+
+            {% for product in low_stock_products %}
+
+            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+
+                <span>
+                    {{ product[0] }}
+                </span>
+
+                <span class="badge bg-danger">
+
+                    {{ product[1] }} Left
+
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="text-success mb-0">
+
+                All products have sufficient stock.
+
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- Orders -->
+
+<h5 class="fw-bold mb-3">
+    Recent Orders
+</h5>
+
+{% for order in orders %}
+
+<div class="card border-0 shadow-sm rounded-4 mb-3">
+
+    <div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+    <div>
+
+        <h5 class="fw-bold mb-1">
+            #{{ order.order_id }}
+        </h5>
+
+        <small class="text-muted">
+
+            👤 {{ order.customer_name }}
+
+        </small>
+
+    </div>
+
+    <span class="badge bg-secondary">
+
+        {{ order.status }}
+
+    </span>
+
+</div>
+
+        <p class="mb-1 mt-2">
+
+            💰 ₹{{ order.total_amount }}
+
+        </p>
+
+        <p class="text-muted small">
+
+            {{ order.order_date }}
+
+        </p>
+
+        <div class="d-grid gap-2 mt-3">
+
+            <a href="/admin/order-details/{{ order.order_id }}"
+               class="btn btn-info">
+
+                View Items
+
+            </a>
+
+            <a href="/update-status/{{ order.order_id }}/Preparing"
+               class="btn btn-warning">
+
+                Preparing
+
+            </a>
+
+            <a href="/update-status/{{ order.order_id }}/Ready For Pickup"
+               class="btn btn-primary">
+
+                Ready For Pickup
+
+            </a>
+
+            <a href="/update-status/{{ order.order_id }}/Collected"
+               class="btn btn-success">
+
+                Collected
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+
+<div class="card shadow-sm border-0 rounded-4 mx-auto"
+     style="max-width:500px;">
+
+    <div class="card-body">
+
+        <div class="text-center mb-4">
+
+            <div style="font-size:60px;">
+                🚤
+            </div>
+
+            <h3 class="fw-bold">
+
+                Boat Owner Registration
+
+            </h3>
+
+            <p class="text-muted mb-0">
+
+                Create your Boat Owner account
+
+            </p>
+
+        </div>
+
+        <form method="POST">
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Boat Number
+
+                </label>
+
+                <input
+                    type="text"
+                    name="boat_number"
+                    class="form-control"
+                    placeholder="Enter Boat Number"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Owner Name
+
+                </label>
+
+                <input
+                    type="text"
+                    name="owner_name"
+                    class="form-control"
+                    placeholder="Enter Owner Name"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+
+                    Mobile Number
+
+                </label>
+
+                <input
+                    type="text"
+                    name="mobile"
+                    class="form-control"
+                    placeholder="Enter Mobile Number"
+                    required>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+
+                    Password
+
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Enter Password"
+                    required>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-primary w-100">
+
+                ✅ Register
+
+            </button>
+
+        </form>
+
+        <div class="text-center mt-3">
+
+            <a href="/login"
+               class="text-decoration-none">
+
+                Already have an account? Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center"
+     style="min-height:80vh;">
+
+    <div class="card shadow border-0 rounded-4 p-4"
+         style="max-width:400px;width:100%;">
+
+        <div class="text-center mb-4">
+
+            <div style="font-size:70px;">
+                🔐
+            </div>
+
+            <h3 class="fw-bold">
+                Admin Login
+            </h3>
+
+            <p class="text-muted">
+
+                Authorized Access Only
+
+            </p>
+
+        </div>
+
+        <form method="POST">
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Admin Mobile
+                </label>
+
+                <input
+                    type="text"
+                    name="mobile"
+                    class="form-control"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    required>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-primary w-100">
+
+                Login
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

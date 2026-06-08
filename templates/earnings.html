@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-3">
+
+
+<a href="/admin/orders"
+   class="btn btn-outline-secondary mb-3">
+
+    ← Back
+
+</a>
+
+<h3 class="fw-bold mb-4">
+    💰 Earnings
+</h3>
+
+<div class="card shadow-sm border-0 rounded-4 mb-3">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <span class="fw-semibold">
+                Today's Earnings
+            </span>
+
+            <h4 class="text-success mb-0">
+                ₹{{ today_earnings }}
+            </h4>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0 rounded-4 mb-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <span class="fw-semibold">
+                Lifetime Earnings
+            </span>
+
+            <h4 class="text-primary mb-0">
+                ₹{{ lifetime_earnings }}
+            </h4>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0 rounded-4">
+
+    <div class="card-body">
+
+        <h5 class="mb-3">
+            📅 Date Wise Earnings
+        </h5>
+
+        <form method="POST">
+
+            <input
+                type="date"
+                name="selected_date"
+                class="form-control mb-3"
+                required>
+
+            <button
+                class="btn btn-warning w-100">
+
+                View Earnings
+
+            </button>
+
+        </form>
+
+        {% if selected_date %}
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <strong>
+                {{ selected_date }}
+            </strong>
+
+            <h5 class="text-success mb-0">
+                ₹{{ date_earnings }}
+            </h5>
+
+        </div>
+
+        <h6 class="mb-3">
+            Orders
+        </h6>
+
+        {% if date_orders %}
+
+            {% for order in date_orders %}
+
+            <div class="card mb-2 border-0 bg-light">
+
+                <div class="card-body py-2">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <strong>
+                                Order #{{ order[0] }}
+                            </strong>
+
+                            <br>
+
+                            👤 {{ order[1] }}
+
+                        </div>
+
+                        <div class="text-success fw-bold">
+
+                            ₹{{ order[2] }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="text-muted mb-0">
+
+                No collected orders found for this date.
+
+            </p>
+
+        {% endif %}
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}

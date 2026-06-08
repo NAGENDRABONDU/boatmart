@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-3">
+
+
+<div class="d-flex align-items-center mb-4">
+
+    <a href="/admin/products"
+       class="btn btn-outline-secondary me-3">
+
+        ←
+
+    </a>
+
+    <h3 class="fw-bold mb-0">
+
+        ➕ Add Product
+
+    </h3>
+
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body">
+
+        <p class="text-muted mb-4">
+
+            Add a new product to BoatMart inventory.
+
+        </p>
+
+        <form method="POST">
+
+            <div class="mb-3">
+
+                <label class="form-label fw-semibold">
+
+                    Product Name
+
+                </label>
+
+                <input
+                    type="text"
+                    name="product_name"
+                    class="form-control"
+                    placeholder="Enter product name"
+                    required>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6 mb-3">
+
+                    <label class="form-label fw-semibold">
+
+                        Price (₹)
+
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="price"
+                        class="form-control"
+                        placeholder="0"
+                        required>
+
+                </div>
+
+                <div class="col-6 mb-3">
+
+                    <label class="form-label fw-semibold">
+
+                        Stock
+
+                    </label>
+
+                    <input
+                        type="number"
+                        name="stock"
+                        class="form-control"
+                        placeholder="0"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+
+                    Category
+
+                </label>
+
+                <select
+                    name="category"
+                    class="form-select"
+                    required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Drinks">
+                        🥤 Drinks
+                    </option>
+
+                    <option value="Snacks">
+                        🍪 Snacks
+                    </option>
+
+                    <option value="Grocery Items">
+                        🛒 Grocery Items
+                    </option>
+
+                    <option value="Engine Oil & Lubricants">
+                        ⚙ Engine Oil & Lubricants
+                    </option>
+
+                    <option value="Fishing Equipment">
+                        🎣 Fishing Equipment
+                    </option>
+
+                    <option value="Boat Accessories">
+                        🔧 Boat Accessories
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-success w-100">
+
+                ➕ Add Product
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}
