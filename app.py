@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, jsonify, render_template, redirect, request, session
 from db import get_connection
 
 app = Flask(__name__)
@@ -490,9 +490,21 @@ def add_to_cart(product_id):
         """, (user_id, product_id))
 
     conn.commit()
+    
+    cursor.execute("""
+        SELECT SUM(quantity)
+        FROM cart
+        WHERE user_id = ?
+    """, (user_id,))
+
+    cart_count = cursor.fetchone()[0] or 0
+
     conn.close()
 
-    return redirect("/products")
+    return jsonify({
+    "success": True,
+    "cart_count": cart_count
+})
 
 
 @app.route("/")

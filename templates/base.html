@@ -41,6 +41,34 @@
     .bottom-nav a:hover{
         color:#0d6efd;
     }
+   .cart-bounce {
+
+    animation: cartBounce 0.4s ease;
+
+}
+
+@keyframes cartBounce {
+
+    0% {
+
+        font-size: 10px;
+
+    }
+
+    50% {
+
+        font-size: 16px;
+
+    }
+
+    100% {
+
+        font-size: 10px;
+
+    }
+
+}
+
 
 </style>
 
@@ -74,16 +102,13 @@
 
             🛒
 
-            {% if cart_count > 0 %}
+          <span id="cart-badge"
+      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+      style="font-size:10px; {% if cart_count == 0 %}display:none;{% endif %}">
 
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                  style="font-size:10px;">
+    {{ cart_count }}
 
-                {{ cart_count }}
-
-            </span>
-
-            {% endif %}
+</span>
 
         </a>
 
@@ -172,16 +197,13 @@ class="position-relative">
 
     🛒
 
-    {% if cart_count > 0 %}
+<span id="bottom-cart-badge"
+      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+      style="font-size:10px; {% if cart_count == 0 %}display:none;{% endif %}">
 
-    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-          style="font-size:8px;">
+    {{ cart_count }}
 
-        {{ cart_count }}
-
-    </span>
-
-    {% endif %}
+</span>
 
 </div>
 
@@ -191,7 +213,6 @@ Cart
 
 
 </a>
-
 
     <a href="/support">
 

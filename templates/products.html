@@ -126,36 +126,32 @@
         ❌ Out Of Stock
 
     </span>
-
 {% endif %}
 
-                {% if product.available_stock > 0 %}
+{% if product.available_stock > 0 %}
 
+<div class="mt-auto">
 
-    <form
-        action="/add-to-cart/{{ product.product_id }}"
-        method="POST"
-        class="mt-auto">
+    <button
+        type="button"
+        class="btn btn-primary w-100"
+        onclick="addToCart({{ product.product_id }})">
 
-        <button
-            type="submit"
-            class="btn btn-primary w-100">
+        Add To Cart
 
-            Add To Cart
+    </button>
 
-        </button>
-
-    </form>
+</div>
 
 {% else %}
 
-    <button
-        class="btn btn-danger w-100"
-        disabled>
+<button
+    class="btn btn-danger w-100"
+    disabled>
 
-        Out Of Stock
+    Out Of Stock
 
-    </button>
+</button>
 
 {% endif %}
 
@@ -171,5 +167,104 @@
 
 
 </div>
+
+<script>
+
+async function addToCart(productId) {
+
+    try {
+
+        const response = await fetch(
+            `/add-to-cart/${productId}`,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            const topBadge =
+                document.getElementById("cart-badge");
+
+            if (topBadge) {
+
+    topBadge.innerText = data.cart_count;
+    topBadge.classList.remove("cart-bounce");
+
+setTimeout(() => {
+
+    topBadge.classList.add("cart-bounce");
+
+}, 10);
+
+    if (data.cart_count > 0) {
+
+        topBadge.style.display = "inline-block";
+
+    } else {
+
+        topBadge.style.display = "none";
+
+    }
+
+}
+            const bottomBadge =
+                document.getElementById("bottom-cart-badge");
+
+           if (bottomBadge) {
+
+    bottomBadge.innerText = data.cart_count;
+   bottomBadge.classList.remove("cart-bounce");
+
+setTimeout(() => {
+
+    bottomBadge.classList.add("cart-bounce");
+
+}, 10);
+
+    if (data.cart_count > 0) {
+
+        bottomBadge.style.display = "inline-block";
+
+    } else {
+
+        bottomBadge.style.display = "none";
+
+    }
+
+}
+            const toast =
+                document.getElementById("cart-toast");
+
+            if (toast) {
+
+                toast.style.display = "block";
+
+                setTimeout(() => {
+
+                    toast.style.display = "none";
+
+                }, 1500);
+
+            }
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Add To Cart Error:",
+            error
+        );
+
+    }
+
+}
+
+</script>
 
 {% endblock %}
