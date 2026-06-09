@@ -70,6 +70,26 @@
 }
 
 
+.cart-shake {
+
+    animation: shake 0.4s;
+
+}
+
+@keyframes shake {
+
+    0% { transform: rotate(0deg); }
+
+    25% { transform: rotate(-10deg); }
+
+    50% { transform: rotate(10deg); }
+
+    75% { transform: rotate(-10deg); }
+
+    100% { transform: rotate(0deg); }
+
+}
+
 </style>
 
 
@@ -93,8 +113,16 @@
 
     <div class="d-flex align-items-center gap-3">
 
-        {% if request.path != "/cart"
-           and "admin_id" not in session %}
+       {% if "user_id" in session
+   and "admin_id" not in session
+   and request.path != "/cart"
+   and request.path not in [
+        '/login',
+        '/register',
+        '/forgot-password',
+        '/owner-register',
+        '/admin-login'
+   ] %}
 
         <a href="/cart"
            class="position-relative text-decoration-none text-white"
@@ -144,7 +172,15 @@
 
 </div>
 
-{% if "admin_id" not in session %}
+{% if "user_id" in session
+   and "admin_id" not in session
+   and request.path not in [
+        '/login',
+        '/register',
+        '/forgot-password',
+        '/owner-register',
+        '/admin-login'
+   ] %}
 
 <nav class="navbar bg-white border-top fixed-bottom shadow-sm bottom-nav">
 

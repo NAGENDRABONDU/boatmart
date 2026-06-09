@@ -499,11 +499,20 @@ def add_to_cart(product_id):
 
     cart_count = cursor.fetchone()[0] or 0
 
+    cursor.execute("""
+        SELECT stock
+        FROM products
+        WHERE product_id = ?
+    """, (product_id,))
+
+    stock = cursor.fetchone()[0]
+
     conn.close()
 
     return jsonify({
     "success": True,
-    "cart_count": cart_count
+    "cart_count": cart_count,
+    "stock": stock
 })
 
 
